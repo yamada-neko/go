@@ -140,15 +140,17 @@ func loadEnv() {
 }
 
 func initDB() {
-	dsn := os.Getenv("DATABASE_DSN")
-	if dsn == "" {
-		log.Fatal("DATABASE_DSN env required, see .env.example")
-	}
-	var err error
-	db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
-	if err != nil {
-		log.Fatalf("failed to connect db: %v", err)
-	}
+    port := os.Getenv("DB_PORT")
+    host := os.Getenv("DB_HOST")
+    user := os.Getenv("DB_USER")
+    password := os.Getenv("DB_PASSWORD")
+    dbname := os.Getenv("DB_NAME")
+    dns := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Tokyo", host, user, password, dbname, port)
+    var err error
+    db, err = gorm.Open(postgres.Open(dns), &gorm.Config{})
+    if err != nil {
+        log.Fatalf("failed to connect db: %v", err)
+    } 
 
 	// migrations
 	err = db.AutoMigrate(&User{}, &Product{}, &Order{}, &OrderItem{})
