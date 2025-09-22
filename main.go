@@ -1,13 +1,3 @@
-// ec-backend-main.go
-// Simple EC-style backend in one file (Go + Gin + GORM + PostgreSQL)
-// Usage:
-// 1) Create a .env file (example below)
-// 2) go mod init example.com/ec && go get && go run .
-// .env example:
-// DATABASE_DSN=host=localhost user=postgres password=secret dbname=ec_db port=5432 sslmode=disable TimeZone=Asia/Tokyo
-// JWT_SECRET=supersecretkey
-// PORT=8080
-
 package main
 
 import (
